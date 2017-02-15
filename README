@@ -1,0 +1,45 @@
+project 1b
+
+included:
+	Makefile
+	README
+	client.c
+	server.c
+	my.key
+
+Example:
+	./server --port 2001
+	./client --port 2001
+
+	./server --port 2001 --encryp
+	./client --port 2001 --encryp
+
+	./server --port 2001 --encryp
+	./client --port 2001 --encryp --log [filename]
+
+filename = uses specific file to write the log into
+Important note:
+in this lab i made multi-process telnet-like client and server.
+this program uses mcrypt(3), socket(7) functions of c.
+the important part about this lab is first sockets, how they work and impelemented.
+sockets need many variable to be created, such as port,AF_INET,SOCK_STREAM.
+the tutorial about sockets can be found on :   http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
+the other function that was used was mcrypt. mcrypt does not exist on mac and has to be either downloaded or
+just use a linux server. mcrypt has two part of encrypt and decrypt.
+encrypt uses the key to encrypt the buffer in the server and in client we decrypt the buffer so it is human
+readable. Makefile make usase the -g option inorder to beable to run the program on gdb. the serverfile
+create the server and client file will execute the shell and use fork and use socket to connect to the server.
+
+options for Makefile are :
+	all: creates executable for both server and client with -pthread and -lmcrypt flags
+	server: creates the only server executable
+	client: Creates the only client executable
+	clean: Deletes all the files created in by the Makefile including the executables.
+	dist: creates a tarball containing 5 files - server.c, client.c, Makefile, README and my.key.
+
+sources:
+http://man7.org/linux/man-pages/man7/ip.7.html
+http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
+stackoverflow
+http://mcrypt.hellug.gr/
+www.gnu.org
